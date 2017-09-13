@@ -18,7 +18,8 @@ def consensus(blockchain):
 def create_genesis_block():
   # Manually construct a block with
   # index zero and arbitrary previous hash
-  return Block.Block(0, date.datetime.now(), {"from": "no one", "to":"tyree", "amount": 3, "proof-of-work": 1}, "0")
+  return Block.Block(0, date.datetime.now(), {"from": "no one", "to":"tyree", "amount": 3, "proof-of-work": 1,
+                                              "transactions": None}, "0")
 
 def find_new_chains():
   # Get the blockchains of every
@@ -54,3 +55,6 @@ def next_block(last_block):
   this_data = "Hey! I'm block " + str(this_index)
   this_hash = last_block.hash
   return Block(this_index, this_timestamp, this_data, this_hash)
+
+def update_all_blocks(hash_of_block):
+  pass

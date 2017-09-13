@@ -5,12 +5,13 @@ import utils
 from flask import Flask
 from flask import request
 from Model import Block
+from Model import Ledger
 
 node = Flask(__name__)
 
 # Store the transactions that
 # this node has in a list
-this_nodes_transactions = []
+transactions = Ledger.Ledger([])
 
 # Create the blockchain and add the genesis block
 blockchain = []
@@ -25,7 +26,7 @@ def transaction():
     # we extract the transaction data
     new_txion = request.get_json()
     # Then we add the transaction to our list
-    this_nodes_transactions.append(new_txion)
+    transactions.update(new_txion)
     # Because the transaction was successfully
     # submitted, we log it to our console
     print("New transaction")
@@ -51,27 +52,24 @@ def mine():
   # Once we find a valid proof of work,
   # we know we can mine a block so
   # we reward the miner by adding a transaction
-  this_nodes_transactions.append(
-    { "from": "network", "to": miner_address, "amount": 1 }
-  )
+  transactions.update({ "from": "network", "to": miner_address, "amount": 1 })
   # Now we can gather the data needed
   # to create the new block
   new_block_data = {
     "proof-of-work": proof,
-    "transactions": list(this_nodes_transactions)
+    "transactions":  transactions.viewAllTranscation(),
+    "amount": 1
   }
   new_block_index = last_block.index + 1
   new_block_timestamp = this_timestamp = date.datetime.now()
   last_block_hash = last_block.hash
-  # Empty transaction list
-  this_nodes_transactions[:] = []
   # Now create the
   # new block!
   mined_block = Block.Block(
     new_block_index,
     new_block_timestamp,
     new_block_data,
-    last_block_hash
+    last_block_hash,
   )
   blockchain.append(mined_block)
   # Let the client know we mined a block
