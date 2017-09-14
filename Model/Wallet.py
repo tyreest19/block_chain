@@ -1,14 +1,23 @@
+import uuid
+
 class Wallet:
     """Wallets containing blocks"""
-    def __init__(self, private_key, public_address):
-        self.private_key = private_key
-        self.public_address = public_address
+    def __init__(self, wallet_name):
+        self.private_key = str(uuid.uuid4())
+        self.wallet_name = wallet_name
         self.blocks = []
 
-    def send(self, block, wallets, public_address):
+    def send(self, block, wallets, wallet_name):
         for wallet in wallets:
-            if wallet.public_address == public_address:
+            if wallet.wallet_name == wallet_name:
                 wallet.blocks.append(block)
                 self.blocks.remove(block)
-        return {'From': self.public_address, 'To': public_address, 'Data:': block}
+        return {'From': self.wallet_name, 'To': wallet_name, 'Data:': block}
+
+    def returnAsDict(self):
+        return {
+            "Private Key": self.private_key,
+            "Wallet Name": self.wallet_name,
+            "Blocks": self.blocks
+        }
 

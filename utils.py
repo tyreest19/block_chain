@@ -1,6 +1,7 @@
 import datetime as date
 from flask import request
 from Model import Block
+from Model import Wallet
 
 def consensus(blockchain):
   # Get the blocks from other nodes
@@ -58,3 +59,6 @@ def next_block(last_block):
 
 def update_all_blocks(hash_of_block):
   pass
+
+def create_wallet(wallet_name):
+  return Wallet.Wallet(wallet_name)

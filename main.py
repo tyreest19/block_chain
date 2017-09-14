@@ -3,36 +3,39 @@ import hashlib as hasher
 import json
 import utils
 from flask import Flask
+from flask import redirect
+from flask import render_template
 from flask import request
 from Model import Block
 from Model import Ledger
 
-node = Flask(__name__)
+node = Flask(__name__, template_folder='View', static_folder='View')
 
 # Store the transactions that
 # this node has in a list
 transactions = Ledger.Ledger([])
 
 # Create the blockchain and add the genesis block
+wallets = []
 blockchain = []
 blockchain.append(utils.create_genesis_block())
 previous_block = blockchain[0]
 miner_address = "q3nf394hjg-random-miner-address-34nf3i4nflkn3oi"
 
-@node.route('/txion', methods=['POST'])
+@node.route('/transcation', methods=['POST'])
 def transaction():
   if request.method == 'POST':
     # On each new POST request,
     # we extract the transaction data
-    new_txion = request.get_json()
+    new_transation = request.get_json()
     # Then we add the transaction to our list
-    transactions.update(new_txion)
+    transactions.update(new_transation)
     # Because the transaction was successfully
     # submitted, we log it to our console
     print("New transaction")
-    print("FROM: {}".format(new_txion['from']))
-    print("TO: {}".format(new_txion['to']))
-    print("AMOUNT: {}\n".format(new_txion['amount']))
+    print("FROM: {}".format(new_transation['from']))
+    print("TO: {}".format(new_transation['to']))
+    print("AMOUNT: {}\n".format(new_transation['amount']))
     # Then we let the client know it worked out
     return "Transaction submission successful\n"
 # ...blockchain
@@ -94,6 +97,24 @@ def get_blocks():
   # Send our chain to whomever requested it
   chain_to_send = json.dumps(chain_to_send)
   return chain_to_send
+
+@node.route('/create-wallet', methods=['GET', 'POST'])
+def create_wallet():
+  if request.method == 'POST':
+    wallet_name = request.form['wallet_name']
+    new_wallet = utils.create_wallet(wallet_name)
+    wallets.append(new_wallet)
+    return redirect('/view-wallet/' + new_wallet.wallet_name)
+  return render_template('create_wallet.html')
+
+
+@node.route('/view-wallet/<wallet_name>')
+def view_wallet(wallet_name):
+  for wallet in wallets:
+    if wallet_name in wallet.wallet_name:
+      return render_template('view_wallet.html', wallet_name=wallet.wallet_name, private_key=wallet.private_key,
+                             blocks=wallet.blocks)
+  return "Could not locate your wallet"
 
 if __name__ == "__main__":
     node.run(debug=True)
