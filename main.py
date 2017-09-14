@@ -52,7 +52,6 @@ def mine():
   # Once we find a valid proof of work,
   # we know we can mine a block so
   # we reward the miner by adding a transaction
-  transactions.update({ "from": "network", "to": miner_address, "amount": 1 })
   # Now we can gather the data needed
   # to create the new block
   new_block_data = {
@@ -61,7 +60,7 @@ def mine():
     "amount": 1
   }
   new_block_index = last_block.index + 1
-  new_block_timestamp = this_timestamp = date.datetime.now()
+  new_block_timestamp = this_timestamp = str(date.datetime.now())
   last_block_hash = last_block.hash
   # Now create the
   # new block!
@@ -72,13 +71,9 @@ def mine():
     last_block_hash,
   )
   blockchain.append(mined_block)
+  transactions.update({"from": "network", "to": miner_address, "data": mined_block.returnAsDict()})
   # Let the client know we mined a block
-  return json.dumps({
-      "index": new_block_index,
-      "timestamp": str(new_block_timestamp),
-      "data": new_block_data,
-      "hash": last_block_hash
-  }) + "\n"
+  return str(mined_block.returnAsDict())
 
 @node.route('/blocks', methods=['GET'])
 def get_blocks():

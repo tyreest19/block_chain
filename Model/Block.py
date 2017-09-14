@@ -19,3 +19,11 @@ class Block:
                str(self.previous_hash)).encode())
     return sha.hexdigest()
 
+  def returnAsDict(self):
+      return {
+          "Index": self.index,
+          "Time Stamp": self.timestamp,
+          "Data": self.data,
+          "Previous Hash": self.previous_hash,
+          "Hash": self.hash
+      }

@@ -1,5 +1,5 @@
 class Ledger:
-
+    """Contains all the transcations and creation of new blocks"""
     def __init__(self, transcations):
        self.transactions = transcations
 
