@@ -8,6 +8,7 @@ class Wallet:
         self.blocks = []
 
     def send(self, block, wallets, wallet_name):
+
         for wallet in wallets:
             if wallet.wallet_name == wallet_name:
                 wallet.blocks.append(block)
@@ -20,4 +21,7 @@ class Wallet:
             "Wallet Name": self.wallet_name,
             "Blocks": self.blocks
         }
+
+    def receive(self, block, sender):
+        self.blocks.append(block)
 

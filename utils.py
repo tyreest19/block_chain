@@ -3,6 +3,9 @@ from flask import request
 from Model import Block
 from Model import Wallet
 
+class WalletNotFoundError(Exception):
+  """Error message that appears when a wallet does not exist"""
+
 def consensus(blockchain):
   # Get the blocks from other nodes
   other_chains = find_new_chains()
@@ -20,7 +23,7 @@ def create_genesis_block():
   # Manually construct a block with
   # index zero and arbitrary previous hash
   return Block.Block(0, date.datetime.now(), {"from": "no one", "to":"tyree", "amount": 3, "proof-of-work": 1,
-                                              "transactions": None}, "0")
+                                              "transactions": []}, "0")
 
 def find_new_chains():
   # Get the blockchains of every
@@ -57,8 +60,17 @@ def next_block(last_block):
   this_hash = last_block.hash
   return Block(this_index, this_timestamp, this_data, this_hash)
 
-def update_all_blocks(hash_of_block):
-  pass
+def update_all_blocks(wallets, new_transcation):
+  for wallet in wallets:
+    for block in wallet.blocks:
+      block.data['transactions'].append(new_transcation)
+      block.hash_block()
 
 def create_wallet(wallet_name):
   return Wallet.Wallet(wallet_name)
+
+def find_wallet(name, wallets):
+  for wallet in wallets:
+    if wallet.wallet_name == name:
+      return wallet
+  raise WalletNotFoundError("The wallet name that you searched for does not exist!")
