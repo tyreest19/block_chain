@@ -25,19 +25,6 @@ def create_genesis_block():
   return Block.Block(0, date.datetime.now(), {"from": "no one", "to":"tyree", "amount": 3, "proof-of-work": 1,
                                               "transactions": []}, "0")
 
-def find_new_chains():
-  # Get the blockchains of every
-  # other node
-  other_chains = []
-  for node_url in peer_nodes:
-    # Get their chains using a GET request
-    block = requests.get(node_url + "/blocks").content
-    # Convert the JSON object to a Python dictionary
-    block = json.loads(block)
-    # Add it to our list
-    other_chains.append(block)
-  return other_chains
-
 def proof_of_work(last_proof):
   # Create a variable that we will use to find
   # our next proof of work

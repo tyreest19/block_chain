@@ -1,3 +1,4 @@
+import utils
 import uuid
 
 class Wallet:
@@ -7,13 +8,13 @@ class Wallet:
         self.wallet_name = wallet_name
         self.blocks = []
 
-    def send(self, block, wallets, wallet_name):
-
+    def send(self, wallets, wallet_name):
         for wallet in wallets:
             if wallet.wallet_name == wallet_name:
+                block = self.blocks.pop(len(self.blocks) - 1)
                 wallet.blocks.append(block)
-                self.blocks.remove(block)
-        return {'From': self.wallet_name, 'To': wallet_name, 'Data:': block}
+                return {'From': self.wallet_name, 'To': wallet_name, 'Data:': block}
+        raise utils.WalletNotFoundError("Could not locate receiver")
 
     def returnAsDict(self):
         return {
