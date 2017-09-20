@@ -17,8 +17,8 @@ node = Flask(__name__, template_folder='View', static_folder='View')
 transactions = Ledger.Ledger([])
 
 # Create the blockchain and add the genesis block
-wallets = []
-blockchain = []
+wallets = [] # Collections of all wallets
+blockchain = [] # Collection of all coins
 blockchain.append(utils.create_genesis_block())
 previous_block = blockchain[0]
 miner_address = "q3nf394hjg-random-miner-address-34nf3i4nflkn3oi"

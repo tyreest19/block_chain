@@ -6,20 +6,9 @@ from Model import Wallet
 class WalletNotFoundError(Exception):
   """Error message that appears when a wallet does not exist"""
 
-def consensus(blockchain):
-  # Get the blocks from other nodes
-  other_chains = find_new_chains()
-  # If our chain isn't longest,
-  # then we store the longest chain
-  longest_chain = blockchain
-  for chain in other_chains:
-    if len(longest_chain) < len(chain):
-      longest_chain = chain
-  # If the longest chain wasn't ours,
-  # then we set our chain to the longest
-  blockchain = longest_chain
 
 def create_genesis_block():
+  """Creates the first block of the block chain"""
   # Manually construct a block with
   # index zero and arbitrary previous hash
   return Block.Block(0, date.datetime.now(), {"from": "no one", "to":"tyree", "amount": 3, "proof-of-work": 1,
@@ -45,7 +34,7 @@ def next_block(last_block):
   this_timestamp = date.datetime.now()
   this_data = "Hey! I'm block " + str(this_index)
   this_hash = last_block.hash
-  return Block(this_index, this_timestamp, this_data, this_hash)
+  return Block.Block(this_index, this_timestamp, this_data, this_hash)
 
 def update_all_blocks(wallets, new_transcation):
   for wallet in wallets:
