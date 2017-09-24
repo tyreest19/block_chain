@@ -23,7 +23,9 @@ blockchain.append(utils.create_genesis_block())
 previous_block = blockchain[0]
 miner_address = "q3nf394hjg-random-miner-address-34nf3i4nflkn3oi"
 
-
+@node.route('/')
+def home():
+    return render_template('index.html')
 @node.route('/transaction', methods=['GET', 'POST'])
 def transaction():
     """Sends 1 block of data to reliever. Then redirects to receivers page."""

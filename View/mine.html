@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends 'template.html' %}
+{% block content %}
 <h1 align="center">Mine for blocks</h1>
-
 <form action="/mine" method="post" align="center" style="padding:25px">
   <br align="center">Wallet Name: <input type="text" name="wallet_name"></br>
     <br align="center"><input type="submit" value="Mine"></br>
 </form>
-</html>
+{% endblock %}
+
 
 
 

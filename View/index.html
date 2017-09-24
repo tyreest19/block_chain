@@ -1,0 +1,30 @@
+{% extends 'template.html' %}
+{% block content %}
+<script type="text/javascript">
+
+    function vidplay() {
+       var video = document.getElementById("View/video/typing_video.mp4");
+       var button = document.getElementById("play");
+       if (video.paused) {
+          video.play();
+          button.textContent = "||";
+       } else {
+          video.pause();
+          button.textContent = ">";
+       }
+    }
+
+    function restart() {
+        var video = document.getElementById("View/video/typing_video.mp4");
+        video.currentTime = 0;
+    }
+
+    function skip(value) {
+        var video = document.getElementById("View/video/typing_video.mp4");
+        video.currentTime += value;
+    }
+</script>
+<video id="View/video/typing_video.mp4" controls autoplay loop>
+    <source src="View/video/typing_video.mp4" type="video/mp4">
+</video>
+{% endblock %}
