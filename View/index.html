@@ -1,30 +1,45 @@
 {% extends 'template.html' %}
 {% block content %}
-<script type="text/javascript">
-
-    function vidplay() {
-       var video = document.getElementById("View/video/typing_video.mp4");
-       var button = document.getElementById("play");
-       if (video.paused) {
-          video.play();
-          button.textContent = "||";
-       } else {
-          video.pause();
-          button.textContent = ">";
-       }
-    }
-
-    function restart() {
-        var video = document.getElementById("View/video/typing_video.mp4");
-        video.currentTime = 0;
-    }
-
-    function skip(value) {
-        var video = document.getElementById("View/video/typing_video.mp4");
-        video.currentTime += value;
-    }
-</script>
-<video id="View/video/typing_video.mp4" controls autoplay loop>
-    <source src="View/video/typing_video.mp4" type="video/mp4">
-</video>
+<div class="container">
+        <div class="jumbotron">
+            <h1>T-Coin</h1>
+            <p>This is a block chain built based off of Tyree Stevenson interpretation of block chain.
+                The Blocks within this chain are called T Coins. T Coins can be mined and sent on this site.
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="thumbnail">
+                    <a href="/create-wallet"  style="text-decoration: none">
+                        <img src="http://i1182.photobucket.com/albums/x459/WeeWeed1/moth-wallet_zpsafb89190.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <p>Users must create a Wallet on this site to interact with T-Coins. This Wallet can then be
+                        used to store T-Coins, receive T-Coins, and send T-Coins</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="thumbnail">
+                    <a href="/mine"  style="text-decoration: none">
+                        <img src="https://pbs.twimg.com/media/A699KH4CQAAllxz.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <p>Mining page allows users to mine for T-Coins. To receive a T-Coin your computer must
+                        find a number bigger than than last T-Coin incrementer and divisible by 9.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div class="thumbnail">
+                    <a href="/transaction"  style="text-decoration: none">
+                        <img src="http://edbean.com/wp-content/uploads/2015/01/print-and-mail-jpeg-notresized.jpg" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <p>Transaction page allows you to send the last </br>T-Coin in your Wallet to another users Wallet.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

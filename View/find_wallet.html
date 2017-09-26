@@ -1,0 +1,8 @@
+{% extends 'template.html' %}
+{% block content %}
+<h1 align="center">Search For Wallet</h1>
+<form action="/create-wallet" method="post" align="center" style="padding:25px">
+  <br align="center">Wallet Name: <input type="text" name="wallet_name"></br>
+    <br align="center"><input type="submit" value="Search"></br>
+</form>
+{% endblock %}

@@ -100,6 +100,15 @@ def create_wallet():
         return redirect('/view-wallet/' + new_wallet.wallet_name)
     return render_template('create_wallet.html')
 
+@node.route('/find-wallet', methods=['GET', 'POST'])
+def find_wallet():
+    """Searches for Wallet and if Wallet exist diplays the Wallets info."""
+    if request.method == 'POST':
+        wallet_name = request.form['wallet_name']
+        return redirect('/view-wallet/' + wallet_name)
+    return render_template('find_wallet.html')
+
+
 @node.route('/view-wallet/<wallet_name>')
 def view_wallet(wallet_name):
     """Url to view any wallet in the system."""
